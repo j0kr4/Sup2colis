@@ -10,6 +10,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Hub {
+  id    Int    @id @default(autoincrement())
+  name  String
+  location String
+  packages Package[]
+}
+
 model Package {
   id          Int      @id @default(autoincrement())
   nom         String
@@ -17,4 +24,6 @@ model Package {
   poids       Float
   destination String
   trackingId  String
+  hubId       Int?
+  hub         Hub?     @relation(fields: [hubId], references: [id])
 }
